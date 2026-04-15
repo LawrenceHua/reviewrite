@@ -1,61 +1,76 @@
-# Contract Analyzer - AI-Powered Contract Review for Freelancers
+# ReviewRite AI
 
-A Huadini Product - Built and shipped in one day.
+**Paste any Google/Yelp review → get a polished owner response in one click.**
 
-## 🚀 Live Demo
+AI-powered review response tool for independent restaurant owners (1-5 locations).
 
-**Website:** https://huadini-contract-analyzer.netlify.app
+## 🚀 Deploy to GitHub Pages
 
-**GitHub:** https://github.com/LawrenceHua/huadini-contract-analyzer
+1. Go to **https://github.com/LawrenceHua/reviewrite/settings/pages**
+2. Under "Build and deployment" → Source: **Deploy from a branch**
+3. Branch: **`gh-pages`** → `/ (root)` → **Save**
+4. Wait 2-3 minutes → site live at `https://LawrenceHua.github.io/reviewrite/`
 
-## ✨ Features
+## Local Development
 
-- **AI Contract Analysis**: Upload PDF, Word, or text files for instant analysis
-- **Risk Scoring**: Get a 0-100 risk score with clear visual indicators
-- **Flagged Clauses**: Identifies problematic clauses with severity levels
-- **Suggested Edits**: AI-powered recommendations for contract improvements
-- **Simple Pricing**: Free tier (3 analyses/month) + Pro tier ($29/month)
+```bash
+cd reviewrite
+npm install
+npm run dev
+```
 
-## 🛠 Tech Stack
+## Tech Stack
 
-- **Frontend**: Next.js 14 + TypeScript + Tailwind CSS + shadcn/ui
-- **AI**: OpenAI GPT-4o for contract analysis
-- **Deployment**: Netlify
-- **Future**: Stripe integration for payments, Supabase for auth
+- **Next.js 16** with `output:"export"` (static, GitHub Pages compatible)
+- **GPT-4o** via OpenAI API for review → response generation
+- **Tailwind CSS v4** + shadcn/ui components
+- **TypeScript**
 
-## 📊 Business Model
+## Pages
+
+| Route | Description |
+|---|---|
+| `/` | Landing page with features + pricing |
+| `/respond/` | Paste review, select sentiment/voice, generate |
+| `/response/` | View AI response with copy button |
+| `/dashboard/` | Response history (localStorage for now) |
+| `/checkout/` | Stripe checkout redirect (client-side) |
+
+## Pricing
 
 | Plan | Price | Features |
-|------|-------|----------|
-| Free | $0 | 3 analyses/month, basic risk assessment |
-| Pro | $29/month | Unlimited analyses, advanced features, priority support |
+|---|---|---|
+| Free | $0/mo | 10 responses/mo, all voices, copy to clipboard |
+| Starter | $19/mo | 50 responses, batch analysis, response history |
+| Pro | $49/mo | Unlimited, batch (50 reviews), weekly digest email |
 
-## 🎯 Target Market
+## Environment Variables
 
-- 73M freelancers globally
-- Small agencies (2-10 people)
-- Independent consultants
-- Digital nomads
+Create `.env.local` with:
 
-## 📝 Research Validation
+```env
+OPENAI_API_KEY=sk-...
+NEXT_PUBLIC_STRIPE_STARTER_PRICE_ID=price_xxx
+NEXT_PUBLIC_STRIPE_PRO_PRICE_ID=price_xxx
+```
 
-This product was selected after analyzing 50+ micro-SaaS ideas for 2026. The Contract Analyzer won because:
+## Build
 
-1. **Clear pain point** - Every freelancer deals with bad contracts
-2. **High willingness to pay** - Legal costs are known and hated ($300-500/hour)
-3. **Simple MVP** - Single feature can launch and validate
-4. **Expandable** - Can add templates, negotiation playbooks, e-signature
-5. **Network effects** - Agencies can roll out to their freelancer network
+```bash
+npm run build   # outputs to /out
+```
 
-## 🚀 Future Roadmap
+## Key Files
 
-- [ ] Stripe payment integration
-- [ ] User authentication (Supabase)
-- [ ] Contract history & storage
-- [ ] Template library
-- [ ] Chrome extension for quick checks
-- [ ] API for integrations
+- `lib/review-analyzer.ts` — GPT-4o response generation + batch sentiment analysis
+- `components/review-input.tsx` — Review paste form with sentiment/voice selectors
+- `components/response-card.tsx` — AI response display with copy button
+- `app/respond/page.tsx` — Step 1: paste & generate
+- `app/response/page.tsx` — Step 2: view & copy response
+- `app/dashboard/page.tsx` — Response history
 
-## 📄 License
+## Deploy Status
 
-MIT - Built with ❤️ by Huadini
+- ✅ Source pushed to `main` branch
+- ✅ Static export pushed to `gh-pages` branch
+- ⏳ GitHub Pages needs manual enable: `https://github.com/LawrenceHua/reviewrite/settings/pages`
